@@ -1,14 +1,16 @@
 package router
 
-import "github.com/gin-gonic/gin"
+import (
+	"Perico6255/task-go-rest/internal/handlers"
 
-func HelloWorld(c *gin.Context) {
-	c.IndentedJSON(200, gin.H{"message": "Hello world"})
-}
+	"github.com/gin-gonic/gin"
+)
+
 
 func SetUp() *gin.Engine{
 	server := gin.Default()
-	server.GET("/hello", HelloWorld)
-  return server
 
+	server.GET("/hello", handlers.HelloWorld)
+
+  return server
 }
