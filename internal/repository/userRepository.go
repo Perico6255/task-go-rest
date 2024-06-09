@@ -9,15 +9,36 @@ import (
 type UserRepository interface {
 	Create(user models.UserModel) (models.UserModel, error)
 	FindById(id uint) (models.UserModel, error)
+	FindAll(id uint) ([]models.UserModel, error)
+	Delete(id uint) (models.UserModel, error)
+	Update(user models.UserModel) (models.UserModel, error)
 }
 type userRepository struct {
 	db *gorm.DB
 }
 
-func (r *userRepository) FindById(id uint) (models.UserModel, error) {
+func (r *userRepository) Delete(id uint) (models.UserModel, error) {
   var user models.UserModel
-  err:= r.db.Find(&user,id ).Error
-  return user, err
+  err := r.db.Delete(&user, id).Error
+  return user,err
+}
+
+func (r *userRepository) Update(user models.UserModel) (models.UserModel, error) {
+  err := r.db.Save(&user).Error
+  return user,err
+}
+
+func (r *userRepository) FindAll(id uint) ([]models.UserModel, error) {
+	var user []models.UserModel
+	err := r.db.Find(&user).Error
+	return user, err
+
+}
+
+func (r *userRepository) FindById(id uint) (models.UserModel, error) {
+	var user models.UserModel
+	err := r.db.Find(&user, id).Error
+	return user, err
 }
 
 func NewUserRepository(db *gorm.DB) UserRepository {
