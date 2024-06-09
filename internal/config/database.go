@@ -1,6 +1,8 @@
 package config
 
 import (
+	"Perico6255/task-go-rest/internal/models"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -13,5 +15,6 @@ func ConnectDatabase() {
 	if err != nil {
 		panic("Error conectandose a la base de datos: %w")
 	}
+  db.AutoMigrate(models.UserModel{})
 	DB = db
 }

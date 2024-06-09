@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-  config.ConnectDatabase()
+	config.ConnectDatabase()
 	server := router.SetUp()
 
 	server.Run(":4000")
