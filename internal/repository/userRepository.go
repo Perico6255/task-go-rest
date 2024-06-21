@@ -9,7 +9,7 @@ import (
 type UserRepository interface {
 	Create(user models.UserModel) (models.UserModel, error)
 	FindById(id uint) (models.UserModel, error)
-	FindAll(id uint) ([]models.UserModel, error)
+	FindAll() ([]models.UserModel, error)
 	Delete(id uint) (models.UserModel, error)
 	Update(user models.UserModel) (models.UserModel, error)
 }
@@ -28,7 +28,7 @@ func (r *userRepository) Update(user models.UserModel) (models.UserModel, error)
   return user,err
 }
 
-func (r *userRepository) FindAll(id uint) ([]models.UserModel, error) {
+func (r *userRepository) FindAll() ([]models.UserModel, error) {
 	var user []models.UserModel
 	err := r.db.Find(&user).Error
 	return user, err
